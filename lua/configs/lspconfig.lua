@@ -64,3 +64,27 @@ null_ls.setup({
   },
 })
 
+vim.api.nvim_create_autocmd("BufWritePre", {
+  pattern = "*.py",
+  callback = function()
+    vim.lsp.buf.format({ async = false })
+  end,
+})
+
+lspconfig.ruff_lsp.setup {
+  on_attach = function(client, bufnr)
+    nvlsp.on_attach(client, bufnr)
+    -- Enable formatting capability if not already set
+    client.server_capabilities.documentFormattingProvider = true
+  end,
+  capabilities = nvlsp.capabilities,
+  init_options = {
+    settings = {
+      -- Any extra CLI arguments for `ruff` go here.
+      args = {},
+      lint = {
+        enable = false,  -- Disable linting
+      },
+    }
+  }
+}
