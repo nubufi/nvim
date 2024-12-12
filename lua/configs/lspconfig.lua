@@ -71,7 +71,7 @@ vim.api.nvim_create_autocmd("BufWritePre", {
   end,
 })
 
-lspconfig.ruff_lsp.setup {
+lspconfig.ruff.setup {
   on_attach = function(client, bufnr)
     nvlsp.on_attach(client, bufnr)
     -- Enable formatting capability if not already set
